@@ -26,7 +26,7 @@ domain after DNS is ready.
 ## Link Targets
 
 - Sign In links point to `https://cloud.secracloud.com`.
-- Contact links open email to `Gabrielconway@secracloud.com`.
+- Contact links open email to `Contact@secracloud.com`.
 - Privacy links point to `privacy.html`.
 
 The policy copy is written for transparency during development. Have it reviewed
