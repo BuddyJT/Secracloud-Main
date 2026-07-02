@@ -26,7 +26,11 @@
           <a aria-current="page" href="index.html">Home</a>
           <a href="#contact">Contact</a>
           <a href="privacy.html">Privacy Policy</a>
-          <a class="nav-action" href="https://api.secracloud.com">Sign In</a>
+          <span id="account-pill" class="account-pill" hidden>
+            <span id="account-avatar" class="account-avatar" aria-hidden="true">SC</span>
+            <span id="account-name">Account</span>
+          </span>
+          <a class="nav-action" href="https://api.secracloud.com" data-storage-link>Sign In</a>
         </div>
       </nav>
     </header>
@@ -41,7 +45,7 @@
             your self-hosted cloud environment.
           </p>
           <div class="hero-actions">
-            <a class="button button-primary" href="https://api.secracloud.com">Sign In</a>
+            <a class="button button-primary" href="https://api.secracloud.com" data-storage-link>Sign In</a>
             <a class="button button-secondary" href="mailto:Gabrielconway@secracloud.com?subject=SecraCloud%20Inquiry">Contact</a>
             <a class="button button-secondary" href="privacy.html">Privacy Policy</a>
           </div>
@@ -121,9 +125,41 @@
         <div class="footer-links">
           <a href="#contact">Contact</a>
           <a href="privacy.html">Privacy Policy</a>
-          <a href="https://api.secracloud.com">Sign In</a>
+          <a href="https://api.secracloud.com" data-storage-link>Sign In</a>
         </div>
       </div>
+      <p class="footer-legal">© 2026 SecraCloud. All rights reserved.</p>
     </footer>
+    <script>
+      (() => {
+        const storageLinks = document.querySelectorAll("[data-storage-link]");
+        const accountPill = document.querySelector("#account-pill");
+        const accountName = document.querySelector("#account-name");
+        const accountAvatar = document.querySelector("#account-avatar");
+
+        function initials(name) {
+          const parts = String(name || "SC").trim().split(/\s+/).filter(Boolean);
+          const letters = parts.length > 1 ? `${parts[0][0]}${parts[1][0]}` : String(parts[0] || "SC").slice(0, 2);
+          return letters.toUpperCase();
+        }
+
+        fetch("https://api.secracloud.com/api/public/session", { credentials: "include" })
+          .then((response) => (response.ok ? response.json() : null))
+          .then((session) => {
+            if (!session?.signedIn) return;
+            const displayName = session.user?.displayName || session.user?.id || "Account";
+            const storageUrl = session.storageUrl || "https://api.secracloud.com";
+
+            storageLinks.forEach((link) => {
+              link.href = storageUrl;
+              link.textContent = "Go to storage";
+            });
+            if (accountName) accountName.textContent = displayName;
+            if (accountAvatar) accountAvatar.textContent = initials(displayName);
+            if (accountPill) accountPill.hidden = false;
+          })
+          .catch(() => {});
+      })();
+    </script>
   </body>
 </html>

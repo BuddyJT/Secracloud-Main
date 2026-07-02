@@ -136,6 +136,38 @@ img {
   background: #13b7ca;
 }
 
+.account-pill {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  min-height: 42px;
+  padding: 6px 10px 6px 7px;
+  border: 1px solid rgba(155, 255, 243, 0.22);
+  border-radius: 999px;
+  background: rgba(155, 255, 243, 0.1);
+  color: #ffffff;
+  font-size: 0.9rem;
+  font-weight: 800;
+  white-space: nowrap;
+}
+
+.account-pill[hidden] {
+  display: none !important;
+}
+
+.account-avatar {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 30px;
+  height: 30px;
+  border-radius: 999px;
+  background: linear-gradient(135deg, var(--cyan), var(--violet));
+  color: #ffffff;
+  font-size: 0.76rem;
+  font-weight: 900;
+}
+
 .hero,
 .page-hero {
   position: relative;
@@ -477,6 +509,23 @@ h1 {
 .footer-links a:focus-visible {
   color: var(--teal);
   outline: none;
+}
+
+.footer-legal {
+  width: min(100%, 1180px);
+  margin: 18px auto 0;
+  padding-top: 16px;
+  border-top: 1px solid rgba(155, 255, 243, 0.1);
+  color: rgba(216, 237, 243, 0.68);
+  font-size: 0.82rem;
+  font-weight: 650;
+  letter-spacing: 0.02em;
+  text-align: center;
+}
+
+.light-footer .footer-legal {
+  border-top-color: rgba(16, 34, 41, 0.1);
+  color: rgba(16, 34, 41, 0.56);
 }
 
 .not-found .hero {
