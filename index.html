@@ -26,10 +26,10 @@
           <a aria-current="page" href="index.html">Home</a>
           <a href="#contact">Contact</a>
           <a href="privacy.html">Privacy Policy</a>
-          <span id="account-pill" class="account-profile" hidden>
+          <button id="account-pill" class="account-profile" type="button" hidden>
             <span id="account-avatar" class="account-avatar" aria-hidden="true">SC</span>
             <span id="account-name">Account</span>
-          </span>
+          </button>
           <a class="nav-action" href="https://api.secracloud.com" data-storage-link>Sign In</a>
         </div>
       </nav>
@@ -130,12 +130,46 @@
       </div>
       <p class="footer-legal">&copy; 2026 SecraCloud. All rights reserved.</p>
     </footer>
+
+    <div id="profile-modal" class="profile-modal" role="dialog" aria-modal="true" aria-labelledby="profile-title" hidden>
+      <form id="profile-form" class="profile-card">
+        <h2 id="profile-title">Edit profile</h2>
+        <p>Update the profile name and picture shown across SecraCloud on this signed-in session.</p>
+        <div class="profile-preview">
+          <span id="profile-preview-avatar" class="account-avatar account-avatar-large" aria-hidden="true">SC</span>
+          <span>
+            <strong id="profile-preview-name">SecraCloud user</strong>
+            <small>Profile picture and display name</small>
+          </span>
+        </div>
+        <label for="profile-name-field">Display name</label>
+        <input id="profile-name-field" type="text" autocomplete="name" maxlength="80">
+        <label for="profile-avatar-field">Profile picture</label>
+        <input id="profile-avatar-field" type="file" accept="image/*">
+        <p id="profile-status" class="profile-status" hidden></p>
+        <div class="profile-actions">
+          <button id="profile-cancel" class="button button-secondary" type="button">Cancel</button>
+          <button class="button button-primary" type="submit">Save profile</button>
+        </div>
+      </form>
+    </div>
+
     <script>
       (() => {
+        const apiOrigin = "https://api.secracloud.com";
         const storageLinks = document.querySelectorAll("[data-storage-link]");
-        const accountPill = document.querySelector("#account-pill");
+        const accountButton = document.querySelector("#account-pill");
         const accountName = document.querySelector("#account-name");
         const accountAvatar = document.querySelector("#account-avatar");
+        const profileModal = document.querySelector("#profile-modal");
+        const profileForm = document.querySelector("#profile-form");
+        const profileCancel = document.querySelector("#profile-cancel");
+        const profileNameField = document.querySelector("#profile-name-field");
+        const profileAvatarField = document.querySelector("#profile-avatar-field");
+        const profilePreviewName = document.querySelector("#profile-preview-name");
+        const profilePreviewAvatar = document.querySelector("#profile-preview-avatar");
+        const profileStatus = document.querySelector("#profile-status");
+        let activeProfile = null;
 
         function initials(name) {
           const parts = String(name || "SC").trim().split(/\s+/).filter(Boolean);
@@ -143,28 +177,124 @@
           return letters.toUpperCase();
         }
 
-        fetch("https://api.secracloud.com/api/public/session", { credentials: "include" })
+        function renderAvatar(target, user) {
+          if (!target) return;
+          if (user?.avatarDataUrl) {
+            target.textContent = "";
+            target.style.backgroundImage = `url("${user.avatarDataUrl}")`;
+          } else {
+            target.style.backgroundImage = "";
+            target.textContent = initials(user?.displayName || user?.id || "SC");
+          }
+        }
+
+        function renderProfile(user) {
+          activeProfile = user;
+          const displayName = user?.displayName || user?.id || "Account";
+          if (accountName) accountName.textContent = displayName;
+          if (profilePreviewName) profilePreviewName.textContent = displayName;
+          if (profileNameField) profileNameField.value = displayName;
+          renderAvatar(accountAvatar, user);
+          renderAvatar(profilePreviewAvatar, user);
+          if (accountButton) accountButton.hidden = false;
+        }
+
+        function closeProfileModal() {
+          if (profileModal) profileModal.hidden = true;
+          if (profileAvatarField) profileAvatarField.value = "";
+          if (profileStatus) profileStatus.hidden = true;
+        }
+
+        function fileToDataUrl(file) {
+          return new Promise((resolve, reject) => {
+            const reader = new FileReader();
+            reader.addEventListener("load", () => resolve(String(reader.result || "")));
+            reader.addEventListener("error", () => reject(new Error("Could not read profile image.")));
+            reader.readAsDataURL(file);
+          });
+        }
+
+        async function profileImageToDataUrl(file) {
+          if (!file.type.startsWith("image/")) throw new Error("Profile picture must be an image.");
+          const source = await fileToDataUrl(file);
+          return new Promise((resolve, reject) => {
+            const image = new Image();
+            image.addEventListener("load", () => {
+              const size = 256;
+              const canvas = document.createElement("canvas");
+              const context = canvas.getContext("2d");
+              if (!context) return reject(new Error("Could not prepare profile image."));
+              canvas.width = size;
+              canvas.height = size;
+              const scale = Math.max(size / image.width, size / image.height);
+              const width = image.width * scale;
+              const height = image.height * scale;
+              context.drawImage(image, (size - width) / 2, (size - height) / 2, width, height);
+              resolve(canvas.toDataURL("image/jpeg", 0.86));
+            });
+            image.addEventListener("error", () => reject(new Error("Could not read profile image.")));
+            image.src = source;
+          });
+        }
+
+        fetch(`${apiOrigin}/api/public/session`, { credentials: "include" })
           .then((response) => (response.ok ? response.json() : null))
           .then((session) => {
             if (!session?.signedIn) return;
-            const displayName = session.user?.displayName || session.user?.id || "Account";
-            const storageUrl = session.storageUrl || "https://api.secracloud.com";
+            const storageUrl = session.storageUrl || apiOrigin;
 
             storageLinks.forEach((link) => {
               link.href = storageUrl;
               link.textContent = "Go to storage";
             });
-            if (accountName) accountName.textContent = displayName;
-            if (accountAvatar && session.user?.avatarDataUrl) {
-              accountAvatar.textContent = "";
-              accountAvatar.style.backgroundImage = `url("${session.user.avatarDataUrl}")`;
-            } else if (accountAvatar) {
-              accountAvatar.style.backgroundImage = "";
-              accountAvatar.textContent = initials(displayName);
-            }
-            if (accountPill) accountPill.hidden = false;
+            renderProfile(session.user);
           })
           .catch(() => {});
+
+        accountButton?.addEventListener("click", () => {
+          if (!activeProfile || !profileModal) return;
+          renderProfile(activeProfile);
+          profileModal.hidden = false;
+          requestAnimationFrame(() => profileNameField?.focus());
+        });
+
+        profileCancel?.addEventListener("click", () => closeProfileModal());
+        profileModal?.addEventListener("click", (event) => {
+          if (event.target === profileModal) closeProfileModal();
+        });
+
+        profileForm?.addEventListener("submit", async (event) => {
+          event.preventDefault();
+          if (profileStatus) {
+            profileStatus.hidden = false;
+            profileStatus.textContent = "Saving profile...";
+            profileStatus.classList.remove("error");
+          }
+          try {
+            let avatarDataUrl = activeProfile?.avatarDataUrl || "";
+            const avatarFile = profileAvatarField?.files?.[0];
+            if (avatarFile) avatarDataUrl = await profileImageToDataUrl(avatarFile);
+
+            const response = await fetch(`${apiOrigin}/api/profile`, {
+              method: "POST",
+              credentials: "include",
+              headers: { "content-type": "application/json" },
+              body: JSON.stringify({
+                displayName: profileNameField?.value?.trim() || "SecraCloud user",
+                avatarDataUrl,
+              }),
+            });
+            if (!response.ok) throw new Error("Profile could not be saved.");
+            const result = await response.json();
+            renderProfile(result.user);
+            closeProfileModal();
+          } catch {
+            if (profileStatus) {
+              profileStatus.textContent = "Could not save profile. Make sure you are still signed in.";
+              profileStatus.classList.add("error");
+            }
+          }
+        });
       })();
     </script>
   </body>
