@@ -176,10 +176,23 @@ img {
   align-items: center;
   overflow: hidden;
   background:
-    linear-gradient(90deg, rgba(244, 250, 251, 0.96), rgba(244, 250, 251, 0.86) 46%, rgba(244, 250, 251, 0.64)),
-    linear-gradient(180deg, rgba(244, 250, 251, 0.82), rgba(234, 246, 248, 0.96)),
-    url("assets/secracloud-background.svg") center / cover no-repeat;
+    radial-gradient(circle at 76% 34%, rgba(34, 214, 255, 0.2), transparent 36%),
+    radial-gradient(circle at 88% 18%, rgba(123, 109, 255, 0.14), transparent 34%),
+    linear-gradient(180deg, #ffffff, #f4fafb 64%, #eaf6f8);
   color: var(--paper-ink);
+}
+
+.hero::before,
+.page-hero::before,
+.contact-band::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  z-index: 0;
+  background: url("assets/secracloud-background.svg") center / cover no-repeat;
+  filter: invert(1) hue-rotate(145deg) saturate(0.55) brightness(1.16) contrast(0.62);
+  opacity: 0.42;
+  pointer-events: none;
 }
 
 .page-hero {
@@ -191,13 +204,14 @@ img {
   content: "";
   position: absolute;
   inset: auto 0 0;
+  z-index: 1;
   height: 1px;
   background: linear-gradient(90deg, transparent, rgba(34, 214, 255, 0.8), transparent);
 }
 
 .hero-inner {
   position: relative;
-  z-index: 1;
+  z-index: 2;
   width: min(100%, 1480px);
   margin: 0 auto;
 }
@@ -208,7 +222,7 @@ img {
 
 .eyebrow {
   margin: 0 0 14px;
-  color: var(--aqua);
+  color: var(--teal);
   font-size: 0.82rem;
   font-weight: 800;
   text-transform: uppercase;
@@ -261,7 +275,7 @@ h1 {
   min-height: 52px;
   min-width: 148px;
   padding: 0 22px;
-  border: 1px solid rgba(255, 255, 255, 0.18);
+  border: 1px solid rgba(16, 34, 41, 0.14);
   border-radius: 8px;
   font-weight: 800;
 }
@@ -280,14 +294,14 @@ h1 {
 }
 
 .button-secondary {
-  background: rgba(3, 12, 16, 0.54);
-  color: #ffffff;
+  background: rgba(255, 255, 255, 0.72);
+  color: var(--paper-ink);
 }
 
 .button-secondary:hover,
 .button-secondary:focus-visible {
-  border-color: rgba(155, 255, 243, 0.42);
-  background: rgba(155, 255, 243, 0.12);
+  border-color: rgba(14, 165, 183, 0.32);
+  background: rgba(14, 165, 183, 0.1);
   outline: none;
 }
 
@@ -342,21 +356,24 @@ h1 {
   position: relative;
   padding: 104px 32px 96px;
   background:
-    linear-gradient(90deg, rgba(244, 250, 251, 0.97), rgba(244, 250, 251, 0.88) 52%, rgba(244, 250, 251, 0.72)),
-    linear-gradient(180deg, rgba(244, 250, 251, 0.94), rgba(234, 246, 248, 0.96)),
-    url("assets/secracloud-background.svg") center / cover no-repeat;
+    radial-gradient(circle at 80% 42%, rgba(34, 214, 255, 0.16), transparent 38%),
+    linear-gradient(180deg, #f8fdfe, #eef8fa);
   color: var(--paper-ink);
+  overflow: hidden;
 }
 
 .contact-band::before {
   content: "";
   position: absolute;
   inset: 0 0 auto;
+  z-index: 1;
   height: 1px;
   background: linear-gradient(90deg, transparent, rgba(155, 255, 243, 0.42), transparent);
 }
 
 .contact-layout {
+  position: relative;
+  z-index: 2;
   display: grid;
   grid-template-columns: minmax(0, 1fr) minmax(340px, 0.74fr);
   gap: 72px;
