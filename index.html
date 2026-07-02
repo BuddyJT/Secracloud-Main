@@ -26,7 +26,7 @@
           <a aria-current="page" href="index.html">Home</a>
           <a href="#contact">Contact</a>
           <a href="privacy.html">Privacy Policy</a>
-          <span id="account-pill" class="account-pill" hidden>
+          <span id="account-pill" class="account-profile" hidden>
             <span id="account-avatar" class="account-avatar" aria-hidden="true">SC</span>
             <span id="account-name">Account</span>
           </span>
@@ -155,7 +155,13 @@
               link.textContent = "Go to storage";
             });
             if (accountName) accountName.textContent = displayName;
-            if (accountAvatar) accountAvatar.textContent = initials(displayName);
+            if (accountAvatar && session.user?.avatarDataUrl) {
+              accountAvatar.textContent = "";
+              accountAvatar.style.backgroundImage = `url("${session.user.avatarDataUrl}")`;
+            } else if (accountAvatar) {
+              accountAvatar.style.backgroundImage = "";
+              accountAvatar.textContent = initials(displayName);
+            }
             if (accountPill) accountPill.hidden = false;
           })
           .catch(() => {});

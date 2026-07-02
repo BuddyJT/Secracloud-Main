@@ -1,5 +1,5 @@
 :root {
-  color-scheme: dark;
+  color-scheme: light;
   --night: #02070b;
   --panel: #07151a;
   --panel-soft: #0b2028;
@@ -26,8 +26,8 @@ html {
 
 body {
   margin: 0;
-  background: var(--night);
-  color: var(--text);
+  background: var(--paper);
+  color: var(--paper-ink);
   font-family: Inter, "Avenir Next", Helvetica, Arial, sans-serif;
   line-height: 1.5;
   letter-spacing: 0;
@@ -56,14 +56,14 @@ img {
   display: flex;
   align-items: center;
   justify-content: space-between;
-  width: min(100%, 1180px);
+  width: min(100%, 1480px);
   min-height: 78px;
   margin: 0 auto;
   padding: 12px 16px;
-  border: 1px solid var(--line);
+  border: 1px solid rgba(16, 34, 41, 0.1);
   border-radius: 8px;
-  background: rgba(3, 12, 16, 0.84);
-  box-shadow: 0 22px 60px rgba(0, 0, 0, 0.28);
+  background: rgba(255, 255, 255, 0.86);
+  box-shadow: 0 22px 60px rgba(16, 34, 41, 0.08);
   backdrop-filter: blur(18px);
 }
 
@@ -86,13 +86,13 @@ img {
 }
 
 .brand-name {
-  color: var(--text);
+  color: var(--paper-ink);
   font-size: 1.35rem;
   font-weight: 800;
 }
 
 .brand-tagline {
-  color: var(--aqua);
+  color: var(--teal);
   font-size: 0.75rem;
   font-weight: 700;
   text-transform: uppercase;
@@ -112,7 +112,7 @@ img {
   min-height: 42px;
   padding: 0 14px;
   border-radius: 8px;
-  color: #d8f5fb;
+  color: #30464e;
   font-size: 0.95rem;
   font-weight: 700;
   white-space: nowrap;
@@ -121,8 +121,8 @@ img {
 .nav-links a:hover,
 .nav-links a:focus-visible,
 .nav-links a[aria-current="page"] {
-  background: rgba(155, 255, 243, 0.12);
-  color: #ffffff;
+  background: rgba(14, 165, 183, 0.1);
+  color: var(--paper-ink);
   outline: none;
 }
 
@@ -136,22 +136,19 @@ img {
   background: #13b7ca;
 }
 
-.account-pill {
+.account-profile {
   display: inline-flex;
   align-items: center;
   gap: 8px;
   min-height: 42px;
-  padding: 6px 10px 6px 7px;
-  border: 1px solid rgba(155, 255, 243, 0.22);
-  border-radius: 999px;
-  background: rgba(155, 255, 243, 0.1);
-  color: #ffffff;
+  padding: 0 6px;
+  color: var(--paper-ink);
   font-size: 0.9rem;
   font-weight: 800;
   white-space: nowrap;
 }
 
-.account-pill[hidden] {
+.account-profile[hidden] {
   display: none !important;
 }
 
@@ -163,6 +160,8 @@ img {
   height: 30px;
   border-radius: 999px;
   background: linear-gradient(135deg, var(--cyan), var(--violet));
+  background-size: cover;
+  background-position: center;
   color: #ffffff;
   font-size: 0.76rem;
   font-weight: 900;
@@ -172,14 +171,15 @@ img {
 .page-hero {
   position: relative;
   min-height: 86svh;
-  padding: 160px 24px 72px;
+  padding: 160px 32px 72px;
   display: flex;
   align-items: center;
   overflow: hidden;
   background:
-    linear-gradient(90deg, rgba(2, 7, 11, 0.94), rgba(2, 7, 11, 0.66) 44%, rgba(2, 7, 11, 0.2)),
-    linear-gradient(180deg, rgba(2, 7, 11, 0.3), rgba(2, 7, 11, 0.82)),
+    linear-gradient(90deg, rgba(244, 250, 251, 0.96), rgba(244, 250, 251, 0.86) 46%, rgba(244, 250, 251, 0.64)),
+    linear-gradient(180deg, rgba(244, 250, 251, 0.82), rgba(234, 246, 248, 0.96)),
     url("assets/secracloud-background.svg") center / cover no-repeat;
+  color: var(--paper-ink);
 }
 
 .page-hero {
@@ -198,7 +198,7 @@ img {
 .hero-inner {
   position: relative;
   z-index: 1;
-  width: min(100%, 1180px);
+  width: min(100%, 1480px);
   margin: 0 auto;
 }
 
@@ -231,11 +231,12 @@ h1 {
   font-size: 5.4rem;
   line-height: 0.95;
   font-weight: 850;
+  color: var(--paper-ink);
 }
 
 .page-hero h1 {
   max-width: 920px;
-  color: var(--text);
+  color: var(--paper-ink);
   font-size: 4rem;
   line-height: 1.05;
 }
@@ -243,7 +244,7 @@ h1 {
 .hero-copy {
   max-width: 640px;
   margin-bottom: 30px;
-  color: #d8edf3;
+  color: #30464e;
   font-size: 1.35rem;
 }
 
@@ -293,12 +294,12 @@ h1 {
 .status-band {
   background: var(--paper);
   color: var(--paper-ink);
-  padding: 58px 24px 92px;
+  padding: 58px 32px 92px;
 }
 
 .content-wrap,
 .footer-inner {
-  width: min(100%, 1180px);
+  width: min(100%, 1480px);
   margin: 0 auto;
 }
 
@@ -339,12 +340,12 @@ h1 {
 
 .contact-band {
   position: relative;
-  padding: 104px 24px 96px;
+  padding: 104px 32px 96px;
   background:
-    linear-gradient(90deg, rgba(2, 7, 11, 0.96), rgba(2, 7, 11, 0.84) 52%, rgba(2, 7, 11, 0.7)),
-    linear-gradient(180deg, rgba(2, 7, 11, 1), rgba(7, 21, 26, 0.88)),
+    linear-gradient(90deg, rgba(244, 250, 251, 0.97), rgba(244, 250, 251, 0.88) 52%, rgba(244, 250, 251, 0.72)),
+    linear-gradient(180deg, rgba(244, 250, 251, 0.94), rgba(234, 246, 248, 0.96)),
     url("assets/secracloud-background.svg") center / cover no-repeat;
-  color: var(--text);
+  color: var(--paper-ink);
 }
 
 .contact-band::before {
@@ -369,16 +370,16 @@ h1 {
 .contact-layout .section-heading p:not(.eyebrow) {
   max-width: 620px;
   margin-bottom: 0;
-  color: #d8edf3;
+  color: #30464e;
   font-size: 1.14rem;
 }
 
 .contact-panel {
   padding: 34px;
-  border: 1px solid var(--line);
+  border: 1px solid #d6e8ec;
   border-radius: 8px;
-  background: rgba(7, 21, 26, 0.82);
-  box-shadow: 0 28px 70px rgba(0, 0, 0, 0.28);
+  background: rgba(255, 255, 255, 0.84);
+  box-shadow: 0 28px 70px rgba(16, 34, 41, 0.08);
   backdrop-filter: blur(16px);
 }
 
@@ -393,7 +394,7 @@ h1 {
 .contact-email {
   display: inline-block;
   padding: 12px 0;
-  color: #ffffff;
+  color: var(--paper-ink);
   font-size: 1.2rem;
   font-weight: 800;
   overflow-wrap: anywhere;
@@ -407,13 +408,13 @@ h1 {
 
 .contact-meta {
   margin: 0;
-  color: var(--muted);
+  color: var(--paper-muted);
   font-weight: 700;
 }
 
 .contact-note {
   margin: 10px 0 0;
-  color: #cbe0e7;
+  color: var(--paper-muted);
 }
 
 .contact-divider {
@@ -470,10 +471,10 @@ h1 {
 }
 
 .site-footer {
-  background: #02070b;
-  color: #d8edf3;
+  background: #eaf4f6;
+  color: var(--paper-ink);
   padding: 28px 24px;
-  border-top: 1px solid rgba(155, 255, 243, 0.16);
+  border-top: 1px solid #d3e4e8;
 }
 
 .light-footer {
@@ -512,11 +513,11 @@ h1 {
 }
 
 .footer-legal {
-  width: min(100%, 1180px);
+  width: min(100%, 1480px);
   margin: 18px auto 0;
   padding-top: 16px;
-  border-top: 1px solid rgba(155, 255, 243, 0.1);
-  color: rgba(216, 237, 243, 0.68);
+  border-top: 1px solid rgba(16, 34, 41, 0.1);
+  color: rgba(16, 34, 41, 0.56);
   font-size: 0.82rem;
   font-weight: 650;
   letter-spacing: 0.02em;
