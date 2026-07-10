@@ -24,10 +24,14 @@
         </a>
         <div class="nav-links">
           <a aria-current="page" href="index.html">Home</a>
-          <a href="#storage">Storage</a>
+          <a href="#plans">Plans</a>
           <a href="#contact">Contact</a>
           <a href="privacy.html">Privacy Policy</a>
-          <a class="nav-action" href="https://api.secracloud.com">Sign In</a>
+          <button id="account-pill" class="account-profile" type="button" hidden>
+            <span id="account-avatar" class="account-avatar" aria-hidden="true">SC</span>
+            <span id="account-name">Account</span>
+          </button>
+          <a class="nav-action" href="https://api.secracloud.com" data-storage-link>Sign In</a>
         </div>
       </nav>
     </header>
@@ -35,14 +39,14 @@
     <main>
       <section class="hero" aria-labelledby="home-title">
         <div class="hero-inner">
-          <p class="eyebrow">Development preview</p>
           <h1 id="home-title">SecraCloud</h1>
           <p class="hero-copy">
             A private cloud storage project with a clean, secure front door for
             your self-hosted cloud environment.
           </p>
           <div class="hero-actions">
-            <a class="button button-primary" href="https://api.secracloud.com">Sign In</a>
+            <a class="button button-primary" href="https://api.secracloud.com" data-storage-link>Sign In</a>
+            <a class="button button-secondary" href="#plans">View Plans</a>
             <a class="button button-secondary" href="mailto:Gabrielconway@secracloud.com?subject=SecraCloud%20Inquiry">Contact</a>
             <a class="button button-secondary" href="privacy.html">Privacy Policy</a>
           </div>
@@ -88,34 +92,76 @@
         </div>
       </section>
 
-      <section class="storage-band" id="storage" aria-labelledby="storage-title">
-        <div class="content-wrap storage-layout">
-          <div class="section-heading">
-            <p class="eyebrow dark">Early storage access</p>
-            <h2 id="storage-title">Storage is opening in careful batches.</h2>
+      <section class="plans-band" id="plans" aria-labelledby="plans-title">
+        <div class="content-wrap">
+          <div class="section-heading plans-heading">
+            <p class="eyebrow dark">Plans</p>
+            <h2 id="plans-title">Choose storage that fits your workspace.</h2>
             <p>
-              SecraCloud is brand new, so available storage is intentionally
-              limited while the platform grows. We are keeping capacity measured
-              during the early phase so performance, reliability, and support
-              can mature at the same pace as the service.
+              Start with a SecraCloud plan through secure Square checkout. After payment,
+              you will be sent back to SecraCloud for next steps.
             </p>
           </div>
-          <div class="storage-panel">
-            <p class="storage-kicker">Signed-in account area</p>
-            <h3>Storage options will be managed from inside SecraCloud.</h3>
-            <p>
-              Plan checkout is intended for signed-in members only. After you
-              sign in, SecraCloud can show your current plan, available storage
-              upgrades, and route payment through Square.
-            </p>
-            <div class="tier-list" aria-label="Planned storage tiers">
-              <span>Free 10 GB</span>
-              <span>1 TB</span>
-              <span>2 TB</span>
-              <span>3 TB</span>
-            </div>
-            <a class="button button-primary" href="https://api.secracloud.com">Sign In</a>
+          <div class="plans-grid">
+            <article class="plan-card">
+              <p class="plan-label">1 TB storage</p>
+              <h3>1 TB SecraCloud</h3>
+              <p class="plan-price">$10<span>/mo</span> <small>or $100/year</small></p>
+              <p class="plan-copy">
+                A private cloud workspace for personal files, photos, documents,
+                and day-to-day storage.
+              </p>
+              <ul class="plan-list">
+                <li>1 TB storage quota</li>
+                <li>Upload, preview, and organize files</li>
+                <li>SecraCloud support by email</li>
+              </ul>
+              <div class="billing-actions" aria-label="1 TB payment options">
+                <a class="button button-primary plan-action" href="https://square.link/u/JFRCzq7t">Monthly</a>
+                <a class="button button-secondary plan-action" href="https://square.link/u/P3JAWBYu">Annual</a>
+              </div>
+            </article>
+            <article class="plan-card plan-card-featured">
+              <p class="plan-label">2 TB storage</p>
+              <h3>2 TB SecraCloud</h3>
+              <p class="plan-price">$20<span>/mo</span> <small>or $200/year</small></p>
+              <p class="plan-copy">
+                More room for growing file libraries, business documents,
+                media, and shared work.
+              </p>
+              <ul class="plan-list">
+                <li>2 TB storage quota</li>
+                <li>Storage, sharing, and organization features</li>
+                <li>Upgrade support as you grow</li>
+              </ul>
+              <div class="billing-actions" aria-label="2 TB payment options">
+                <a class="button button-primary plan-action" href="https://square.link/u/PpLagt5y">Monthly</a>
+                <a class="button button-secondary plan-action" href="https://square.link/u/ily0Ptu7">Annual</a>
+              </div>
+            </article>
+            <article class="plan-card">
+              <p class="plan-label">3 TB storage</p>
+              <h3>3 TB SecraCloud</h3>
+              <p class="plan-price">$30<span>/mo</span> <small>or $300/year</small></p>
+              <p class="plan-copy">
+                Larger private cloud storage for heavier personal or business
+                storage needs.
+              </p>
+              <ul class="plan-list">
+                <li>3 TB storage quota</li>
+                <li>Room for larger file collections</li>
+                <li>SecraCloud setup and support</li>
+              </ul>
+              <div class="billing-actions" aria-label="3 TB payment options">
+                <a class="button button-primary plan-action" href="https://square.link/u/tF7GoPCK">Monthly</a>
+                <a class="button button-secondary plan-action" href="https://square.link/u/5S09Izq6">Annual</a>
+              </div>
+            </article>
           </div>
+          <p class="plans-note">
+            Square handles payment checkout securely. Set each Square payment link to redirect
+            customers back to <strong>https://secracloud.com/thank-you.html</strong> after payment.
+          </p>
         </div>
       </section>
 
@@ -131,8 +177,8 @@
           </div>
           <div class="contact-panel">
             <p class="contact-label">Direct contact</p>
-            <a class="contact-email" href="mailto:Gabrielconway@secracloud.com?subject=SecraCloud%20Inquiry">
-              Gabrielconway@secracloud.com
+            <a class="contact-email" href="mailto:Contact@secracloud.com?subject=SecraCloud%20Inquiry">
+              Contact@secracloud.com
             </a>
             <p class="contact-note">
               For platform questions, early access, or development updates.
@@ -146,17 +192,184 @@
 
     <footer class="site-footer">
       <div class="footer-inner">
-        <a class="footer-brand" href="index.html">
+        <div class="footer-brand">
           <img src="assets/favicon.png" alt="" width="34" height="34">
           <span>SecraCloud</span>
-        </a>
+        </div>
         <div class="footer-links">
-          <a href="#storage">Storage</a>
           <a href="#contact">Contact</a>
           <a href="privacy.html">Privacy Policy</a>
-          <a href="https://api.secracloud.com">Sign In</a>
+          <a href="https://api.secracloud.com" data-storage-link>Sign In</a>
         </div>
       </div>
+      <p class="footer-legal">&copy; 2026 SecraCloud. All rights reserved.</p>
     </footer>
+
+    <div id="profile-modal" class="profile-modal" role="dialog" aria-modal="true" aria-labelledby="profile-title" hidden>
+      <form id="profile-form" class="profile-card">
+        <h2 id="profile-title">Edit profile</h2>
+        <p>Update the profile name and picture shown across SecraCloud on this signed-in session.</p>
+        <div class="profile-preview">
+          <span id="profile-preview-avatar" class="account-avatar account-avatar-large" aria-hidden="true">SC</span>
+          <span>
+            <strong id="profile-preview-name">SecraCloud user</strong>
+            <small>Profile picture and display name</small>
+          </span>
+        </div>
+        <label for="profile-name-field">Display name</label>
+        <input id="profile-name-field" type="text" autocomplete="name" maxlength="80">
+        <label for="profile-avatar-field">Profile picture</label>
+        <input id="profile-avatar-field" type="file" accept="image/*">
+        <p id="profile-status" class="profile-status" hidden></p>
+        <div class="profile-actions">
+          <button id="profile-cancel" class="button button-secondary" type="button">Cancel</button>
+          <button class="button button-primary" type="submit">Save profile</button>
+        </div>
+      </form>
+    </div>
+
+    <script>
+      (() => {
+        const apiOrigin = "https://api.secracloud.com";
+        const storageLinks = document.querySelectorAll("[data-storage-link]");
+        const accountButton = document.querySelector("#account-pill");
+        const accountName = document.querySelector("#account-name");
+        const accountAvatar = document.querySelector("#account-avatar");
+        const profileModal = document.querySelector("#profile-modal");
+        const profileForm = document.querySelector("#profile-form");
+        const profileCancel = document.querySelector("#profile-cancel");
+        const profileNameField = document.querySelector("#profile-name-field");
+        const profileAvatarField = document.querySelector("#profile-avatar-field");
+        const profilePreviewName = document.querySelector("#profile-preview-name");
+        const profilePreviewAvatar = document.querySelector("#profile-preview-avatar");
+        const profileStatus = document.querySelector("#profile-status");
+        let activeProfile = null;
+
+        function initials(name) {
+          const parts = String(name || "SC").trim().split(/\s+/).filter(Boolean);
+          const letters = parts.length > 1 ? `${parts[0][0]}${parts[1][0]}` : String(parts[0] || "SC").slice(0, 2);
+          return letters.toUpperCase();
+        }
+
+        function renderAvatar(target, user) {
+          if (!target) return;
+          if (user?.avatarDataUrl) {
+            target.textContent = "";
+            target.style.backgroundImage = `url("${user.avatarDataUrl}")`;
+          } else {
+            target.style.backgroundImage = "";
+            target.textContent = initials(user?.displayName || user?.id || "SC");
+          }
+        }
+
+        function renderProfile(user) {
+          activeProfile = user;
+          const displayName = user?.displayName || user?.id || "Account";
+          if (accountName) accountName.textContent = displayName;
+          if (profilePreviewName) profilePreviewName.textContent = displayName;
+          if (profileNameField) profileNameField.value = displayName;
+          renderAvatar(accountAvatar, user);
+          renderAvatar(profilePreviewAvatar, user);
+          if (accountButton) accountButton.hidden = false;
+        }
+
+        function closeProfileModal() {
+          if (profileModal) profileModal.hidden = true;
+          if (profileAvatarField) profileAvatarField.value = "";
+          if (profileStatus) profileStatus.hidden = true;
+        }
+
+        function fileToDataUrl(file) {
+          return new Promise((resolve, reject) => {
+            const reader = new FileReader();
+            reader.addEventListener("load", () => resolve(String(reader.result || "")));
+            reader.addEventListener("error", () => reject(new Error("Could not read profile image.")));
+            reader.readAsDataURL(file);
+          });
+        }
+
+        async function profileImageToDataUrl(file) {
+          if (!file.type.startsWith("image/")) throw new Error("Profile picture must be an image.");
+          const source = await fileToDataUrl(file);
+          return new Promise((resolve, reject) => {
+            const image = new Image();
+            image.addEventListener("load", () => {
+              const size = 256;
+              const canvas = document.createElement("canvas");
+              const context = canvas.getContext("2d");
+              if (!context) return reject(new Error("Could not prepare profile image."));
+              canvas.width = size;
+              canvas.height = size;
+              const scale = Math.max(size / image.width, size / image.height);
+              const width = image.width * scale;
+              const height = image.height * scale;
+              context.drawImage(image, (size - width) / 2, (size - height) / 2, width, height);
+              resolve(canvas.toDataURL("image/jpeg", 0.86));
+            });
+            image.addEventListener("error", () => reject(new Error("Could not read profile image.")));
+            image.src = source;
+          });
+        }
+
+        fetch(`${apiOrigin}/api/public/session`, { credentials: "include" })
+          .then((response) => (response.ok ? response.json() : null))
+          .then((session) => {
+            if (!session?.signedIn) return;
+            const storageUrl = session.storageUrl || apiOrigin;
+
+            storageLinks.forEach((link) => {
+              link.href = storageUrl;
+              link.textContent = "Go to storage";
+            });
+            renderProfile(session.user);
+          })
+          .catch(() => {});
+
+        accountButton?.addEventListener("click", () => {
+          if (!activeProfile || !profileModal) return;
+          renderProfile(activeProfile);
+          profileModal.hidden = false;
+          requestAnimationFrame(() => profileNameField?.focus());
+        });
+
+        profileCancel?.addEventListener("click", () => closeProfileModal());
+        profileModal?.addEventListener("click", (event) => {
+          if (event.target === profileModal) closeProfileModal();
+        });
+
+        profileForm?.addEventListener("submit", async (event) => {
+          event.preventDefault();
+          if (profileStatus) {
+            profileStatus.hidden = false;
+            profileStatus.textContent = "Saving profile...";
+            profileStatus.classList.remove("error");
+          }
+          try {
+            let avatarDataUrl = activeProfile?.avatarDataUrl || "";
+            const avatarFile = profileAvatarField?.files?.[0];
+            if (avatarFile) avatarDataUrl = await profileImageToDataUrl(avatarFile);
+
+            const response = await fetch(`${apiOrigin}/api/profile`, {
+              method: "POST",
+              credentials: "include",
+              headers: { "content-type": "application/json" },
+              body: JSON.stringify({
+                displayName: profileNameField?.value?.trim() || "SecraCloud user",
+                avatarDataUrl,
+              }),
+            });
+            if (!response.ok) throw new Error("Profile could not be saved.");
+            const result = await response.json();
+            renderProfile(result.user);
+            closeProfileModal();
+          } catch {
+            if (profileStatus) {
+              profileStatus.textContent = "Could not save profile. Make sure you are still signed in.";
+              profileStatus.classList.add("error");
+            }
+          }
+        });
+      })();
+    </script>
   </body>
 </html>

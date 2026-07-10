@@ -1,0 +1,127 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Thank You | SecraCloud</title>
+    <meta
+      name="description"
+      content="Thank you for starting with SecraCloud. Your payment was received and your storage setup is next."
+    >
+    <link rel="icon" href="assets/favicon.png" type="image/png">
+    <link rel="alternate icon" href="assets/favicon.svg" type="image/svg+xml">
+    <link rel="stylesheet" href="styles.css">
+  </head>
+  <body>
+    <header class="site-header">
+      <nav class="nav-shell" aria-label="Primary navigation">
+        <a class="brand" href="index.html" aria-label="SecraCloud home">
+          <img src="assets/favicon.png" alt="" width="52" height="52">
+          <span>
+            <span class="brand-name">SecraCloud</span>
+            <span class="brand-tagline">Private cloud storage</span>
+          </span>
+        </a>
+        <div class="nav-links">
+          <a href="index.html">Home</a>
+          <a href="index.html#plans">Plans</a>
+          <a href="index.html#contact">Contact</a>
+          <a href="privacy.html">Privacy Policy</a>
+          <button id="account-pill" class="account-profile" type="button" hidden>
+            <span id="account-avatar" class="account-avatar" aria-hidden="true">SC</span>
+            <span id="account-name">Account</span>
+          </button>
+          <a class="nav-action" href="https://api.secracloud.com" data-storage-link>Sign In</a>
+        </div>
+      </nav>
+    </header>
+
+    <main>
+      <section class="hero" aria-labelledby="thank-you-title">
+        <div class="hero-inner compact">
+          <p class="eyebrow">Payment received</p>
+          <h1 id="thank-you-title">Thank you for choosing SecraCloud.</h1>
+          <p class="hero-copy">
+            Your checkout is complete. SecraCloud will finish the account or
+            storage update connected to your plan.
+          </p>
+          <div class="hero-actions">
+            <a class="button button-primary" href="https://api.secracloud.com" data-storage-link>Go to storage</a>
+            <a class="button button-secondary" href="mailto:Contact@secracloud.com?subject=SecraCloud%20Payment%20Question">Contact SecraCloud</a>
+          </div>
+
+          <div class="thank-you-panel">
+            <h2>What happens next?</h2>
+            <p>
+              If your account is already active, you can sign in to storage now.
+              If this is a new plan or upgrade, SecraCloud will finish setup and
+              contact you if anything else is needed.
+            </p>
+            <ul class="thank-you-steps">
+              <li>Check the email used during checkout for payment confirmation.</li>
+              <li>Use the storage button when your account is ready.</li>
+              <li>Email Contact@secracloud.com if you need help with access.</li>
+            </ul>
+          </div>
+        </div>
+      </section>
+    </main>
+
+    <footer class="site-footer">
+      <div class="footer-inner">
+        <div class="footer-brand">
+          <img src="assets/favicon.png" alt="" width="34" height="34">
+          <span>SecraCloud</span>
+        </div>
+        <div class="footer-links">
+          <a href="index.html#contact">Contact</a>
+          <a href="privacy.html">Privacy Policy</a>
+          <a href="https://api.secracloud.com" data-storage-link>Sign In</a>
+        </div>
+      </div>
+      <p class="footer-legal">&copy; 2026 SecraCloud. All rights reserved.</p>
+    </footer>
+
+    <script>
+      (() => {
+        const apiOrigin = "https://api.secracloud.com";
+        const storageLinks = document.querySelectorAll("[data-storage-link]");
+        const accountButton = document.querySelector("#account-pill");
+        const accountName = document.querySelector("#account-name");
+        const accountAvatar = document.querySelector("#account-avatar");
+
+        function initials(name) {
+          const parts = String(name || "SC").trim().split(/\s+/).filter(Boolean);
+          const letters = parts.length > 1 ? `${parts[0][0]}${parts[1][0]}` : String(parts[0] || "SC").slice(0, 2);
+          return letters.toUpperCase();
+        }
+
+        function renderAvatar(target, user) {
+          if (!target) return;
+          if (user?.avatarDataUrl) {
+            target.textContent = "";
+            target.style.backgroundImage = `url("${user.avatarDataUrl}")`;
+          } else {
+            target.style.backgroundImage = "";
+            target.textContent = initials(user?.displayName || user?.id || "SC");
+          }
+        }
+
+        fetch(`${apiOrigin}/api/public/session`, { credentials: "include" })
+          .then((response) => (response.ok ? response.json() : null))
+          .then((session) => {
+            if (!session?.signedIn) return;
+            const storageUrl = session.storageUrl || apiOrigin;
+            storageLinks.forEach((link) => {
+              link.href = storageUrl;
+              link.textContent = "Go to storage";
+            });
+            if (accountName) accountName.textContent = session.user?.displayName || session.user?.id || "Account";
+            renderAvatar(accountAvatar, session.user);
+            if (accountButton) accountButton.hidden = false;
+          })
+          .catch(() => {});
+      })();
+    </script>
+  </body>
+</html>
